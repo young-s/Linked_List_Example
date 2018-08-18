@@ -3,6 +3,7 @@ package com.company;
 
 import java.util.*;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Demo {
 
@@ -14,14 +15,15 @@ public class Demo {
         placesToVisit.add("Cork");
         placesToVisit.add("Belfast");
 
-        printList(placesToVisit);
+       // printList(placesToVisit);
 
-        placesToVisit.add(1, "Killarney");
-        printList(placesToVisit);
+       // placesToVisit.add(1, "Killarney");
+      //  printList(placesToVisit);
 
-        placesToVisit.remove(1);
-        printList(placesToVisit);
+      //  placesToVisit.remove(1);
+     //   printList(placesToVisit);
 
+      visit(placesToVisit);
     }
 
 
@@ -78,13 +80,70 @@ private static void visit(LinkedList cities){
             printMenu();
         }
 
+        while (!quit){
+            int action = scanner.nextInt();
+            scanner.nextLine();
+            switch(action){
+                case 0:
+                    System.out.println("Holiday Over");
+                    quit = true;
+                    break;
+
+                case 1:
+                    if(!goingForward){
+                        if(listIterator.hasNext()){
+                            listIterator.next();
+                        }
+                        goingForward = true;
+                    }
+
+                    if(listIterator.hasNext()){
+                        System.out.println("Now visiting " + listIterator.next());
+                    } else{
+                        System.out.println("Reached the end of the list");
+                        goingForward = false;
+                    }
+
+                    break;
+
+                case 2:
+
+                    if(goingForward){
+                        if(listIterator.hasPrevious()){
+                            listIterator.previous();
+                        }
+                        goingForward = false;
+
+                    }
+
+                    if(listIterator.hasPrevious()){
+                        System.out.println("Now visiting " + listIterator.previous());
+                    }
+                    else {
+                        System.out.println("We are at the start of the list");
+                        goingForward = true;
+                    }
+                    break;
 
 
+                case 3:
+                    printMenu();
+                    break;
 
+            }
+
+        }
 
 }
 
 
+private static void printMenu(){
+    System.out.println("Available actions:\nPress ");
+    System.out.println("0 - to quit \n" +
+            "1 - to go to the next city\n"+
+            "2 - to go to the previous city\n"+
+            "3 - to print the menu options again");
+}
 }
 
 
